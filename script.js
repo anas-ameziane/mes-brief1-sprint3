@@ -90,26 +90,32 @@ function displayCountries(countries) {
  * Aucune requête vers l'API ici !
  */
 const filtreContinent = document.getElementById("filtre-continent");
-
+const filtreRecherche = document.getElementById("filtre-recherche");
 function filterCountries() {
-    const selectedContinent = filtreContinent.value;
-    const searchText = document.getElementById("filtre-recherche").value.toLowerCase();
-
-    let filteredCountries = allCountries;
-
-    if (selectedContinent !== "Tous") {
-        filteredCountries = filteredCountries.filter(country => country.region === selectedContinent);
-    }
-
-    filteredCountries = filteredCountries.filter(country =>
-        country.name.common.toLowerCase().includes(searchText)
-    );
-
+  const selectedContinent = document.getElementById("filtre-continent").value;
+  const searchText = document.getElementById("filtre-recherche").value.toLowerCase();
+  if ( selectedContinent === "Tous") {
+    displayCountries(allCountries);
+  } if (selectedContinent === "Afrique") {
+    const filteredCountries = allCountries.filter((country) => country.region === "Africa");
     displayCountries(filteredCountries);
+  } if (selectedContinent === "Asia") {
+    const filteredCountries = allCountries.filter((country) => country.region === "Asia");
+    displayCountries(filteredCountries);
+  } if (selectedContinent === "Europe") {
+    const filteredCountries = allCountries.filter((country) => country.region === "Europe");
+    displayCountries(filteredCountries);
+  } if (selectedContinent === "Americas") {
+    const filteredCountries = allCountries.filter((country) => country.region === "Americas");
+    displayCountries(filteredCountries);
+  } if (selectedContinent === "Oceania") {
+    const filteredCountries = allCountries.filter((country) => country.region === "Oceania");
+    displayCountries(filteredCountries);
+  }
+  
+  
 }
-
-document.getElementById("filtre-recherche").addEventListener("input", filterCountries);
-
+filtreContinent.addEventListener("change", filterCountries);
 
 // ------------------------------------------------------------
 // BONUS
