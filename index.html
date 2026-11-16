@@ -16,8 +16,39 @@
     <!-- Si tu utilises un framework CSS (Bootstrap, Tailwind…), ajoute son lien ICI, AVANT style.css -->
     <link rel="stylesheet" href="style.css" />
 
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <!-- defer : le script s'exécute une fois le HTML chargé -->
     <script src="script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <header> 
+      <div class="title bg-black">
+
+
+      <span class="logo">Atlas Voyages</span>
+      </div>
+    </header>
+    <section style="padding-left: 6%;">
+      <h1>Explorer le monde</h1>
+      <p>Choisis un continent, parcours les pays et trouve ta prochaine destination.</p>
+    <div class="tool-bar">
+       <select id="filtre-continent"
+            class="Continent">
+             <option value="Tous">Tous les continents</option>
+            <option value="Afrique">Afrique</option>
+            <option value="Asia">Asia</option>
+            <option value="Europe">Europe</option>
+            <option value="Oceania">Oceania</option>
+            <option value="Americas">Americas</option>
+          </select>
+       <input class="sherch" type="" placeholder="Ex. : Morocco">
+       <button class="btn" >Trier par population</button>
+    </div>
+    <section class="section " id="section">
+
+      
+    </section>
+    </section>
+  </body>
 </html>

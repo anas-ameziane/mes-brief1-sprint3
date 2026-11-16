@@ -12,10 +12,21 @@ let allCountries = [];
  *
  * @returns {Promise<Array>} Le tableau de tous les pays.
  */
-async function fetchCountries() {
-  // TODO
-}
 
+
+  async function fetchData() { try { const response = await fetch("https://countries.dev/countries");
+    if (response.ok) {
+      allCountries = await response.json();
+      allCountries.forEach((country) => {
+        createCountryCard(country);
+      });
+    } else {
+      console.error("Erreur lors de la récupération des pays");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 /**
  * Crée la carte HTML d'un pays, sur le modèle de la maquette :
  * drapeau (avec un texte alternatif utile), nom, capitale, population.
@@ -23,9 +34,40 @@ async function fetchCountries() {
  * @param {Object} country - Un pays tel que renvoyé par l'API.
  * @returns {HTMLElement} La carte, prête à être ajoutée à la grille.
  */
+
 function createCountryCard(country) {
-  // TODO
+    const section = document.getElementById("section");
+    section.classList.add("countries-grid");
+    const card = document.createElement("div");
+    card.classList.add("country-card");
+    const img = document.createElement("img");
+    img.classList.add("country-flag");
+    const content = document.createElement("div");
+    content.classList.add("country-content");
+    const title = document.createElement("h3");
+    title.classList.add("country-name");
+    const capitale = document.createElement("p");
+    capitale.classList.add("country-info");
+    const capitalValue = document.createElement("span");
+    capitalValue.classList.add("country-value");
+    const Population = document.createElement("p");
+    Population.classList.add("country-info");
+    const populationValue = document.createElement("span");
+    populationValue.classList.add("country-value");
+    img.src = country.flags.png ;
+    img.alt = `Drapeau de ${country.name.common}`;
+    title.textContent = country.name.common;
+    capitale.textContent = "Capitale";
+    capitalValue.textContent = country.capital 
+    Population.textContent = "Population";
+    populationValue.textContent = country.population
+    capitale.append(capitalValue);
+    Population.append(populationValue);
+    content.append(title, capitale, Population);
+    card.append(img, content);
+    section.append(card);
 }
+
 
 /**
  * Affiche une liste de pays dans la grille.
@@ -36,7 +78,7 @@ function createCountryCard(country) {
  * @param {Array} countries - Les pays à afficher.
  */
 function displayCountries(countries) {
-  // TODO
+  
 }
 
 /**
@@ -47,9 +89,26 @@ function displayCountries(countries) {
  *
  * Aucune requête vers l'API ici !
  */
+const filtreContinent = document.getElementById("filtre-continent");
+
 function filterCountries() {
-  // TODO
+    const selectedContinent = filtreContinent.value;
+    const searchText = document.getElementById("filtre-recherche").value.toLowerCase();
+
+    let filteredCountries = allCountries;
+
+    if (selectedContinent !== "Tous") {
+        filteredCountries = filteredCountries.filter(country => country.region === selectedContinent);
+    }
+
+    filteredCountries = filteredCountries.filter(country =>
+        country.name.common.toLowerCase().includes(searchText)
+    );
+
+    displayCountries(filteredCountries);
 }
+
+document.getElementById("filtre-recherche").addEventListener("input", filterCountries);
 
 
 // ------------------------------------------------------------
@@ -101,5 +160,5 @@ function showError(message) {
 async function init() {
   // TODO
 }
-
+fetchData();
 init();
